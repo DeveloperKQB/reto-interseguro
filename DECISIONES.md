@@ -116,3 +116,26 @@ El test runner nativo de Node evita dependencias extra. supertest prueba
 los endpoints en memoria gracias a la separación entre createApp() y
 listen(). supertest es dependencia de desarrollo y no entra en la imagen
 de Docker.
+
+---
+
+## Frontend
+
+### 21. HTML, CSS y JavaScript sin framework
+Una pantalla de login, un formulario y un resultado no justifican React
+o Angular: sin build, sin dependencias.
+
+### 22. nginx como servidor y proxy inverso
+nginx sirve el frontend y redirige /api/ al contenedor de Go. El
+navegador ve un solo origen, por lo que no hace falta CORS. Imagen
+nginx-unprivileged (non-root).
+
+### 23. Token en memoria y CSP estricta
+El token no se guarda en localStorage, para no dejar un token persistido
+expuesto ante un XSS; al recargar se pide login. La Content Security
+Policy solo permite scripts y estilos propios (JS y CSS en archivos
+separados) y los resultados se insertan con textContent.
+
+### 24. Redondeo solo visual
+La interfaz muestra 4 decimales; la API conserva la precisión completa,
+visible al pasar el cursor sobre cada número.

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Factorización QR · Reto Interseguro</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>Factorización QR</h1>
+    <p>Escribe una matriz y obtén A = Q · R junto con sus estadísticas.</p>
+  </header>
+
+  <main>
+    <!-- Paso de autenticación: se oculta tras iniciar sesión -->
+    <section id="login-section" class="panel" aria-labelledby="login-title">
+      <h2 id="login-title">Inicia sesión</h2>
+      <form id="login-form">
+        <label>Usuario
+          <input name="username" autocomplete="username" required value="admin">
+        </label>
+        <label>Contraseña
+          <input name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button type="submit">Iniciar sesión</button>
+      </form>
+      <p id="login-error" class="error" role="alert" hidden></p>
+    </section>
+
+    <!-- Entrada de la matriz -->
+    <section id="matrix-section" class="panel" aria-labelledby="matrix-title" hidden>
+      <div class="panel-head">
+        <h2 id="matrix-title">Matriz A</h2>
+        <button type="button" id="logout" class="link">Cerrar sesión</button>
+      </div>
+      <p class="hint">Una fila por línea; separa los números con espacios o comas.</p>
+      <form id="matrix-form">
+        <textarea id="matrix-input" rows="5" spellcheck="false" aria-label="Matriz A">12 -51 4
+6 167 -68
+-4 24 -41</textarea>
+        <div class="actions">
+          <button type="submit">Calcular</button>
+          <span class="examples">Ejemplos:
+            <button type="button" class="link" data-example="12 -51 4&#10;6 167 -68&#10;-4 24 -41">3×3</button>
+            <button type="button" class="link" data-example="2 0&#10;0 3">Diagonal</button>
+            <button type="button" class="link" data-example="1 2&#10;3 4&#10;5 6&#10;7 8">4×2</button>
+          </span>
+        </div>
+      </form>
+      <p id="matrix-error" class="error" role="alert" hidden></p>
+    </section>
+
+    <!-- Resultado -->
+    <section id="result-section" aria-labelledby="result-title" aria-live="polite" hidden>
+      <h2 id="result-title" class="visually-hidden">Resultado</h2>
+      <div class="equation">
+        <figure><div class="matrix" id="out-a"></div><figcaption>A</figcaption></figure>
+        <span class="op">=</span>
+        <figure><div class="matrix" id="out-q"></div><figcaption>Q</figcaption></figure>
+        <span class="op">·</span>
+        <figure><div class="matrix" id="out-r"></div><figcaption>R</figcaption></figure>
+      </div>
+      <p class="hint">Valores redondeados a 4 decimales; pasa el cursor sobre un número para ver el valor exacto.</p>
+
+      <dl class="stats">
+        <div><dt>Valor máximo</dt><dd id="st-max"></dd></div>
+        <div><dt>Valor mínimo</dt><dd id="st-min"></dd></div>
+        <div><dt>Promedio</dt><dd id="st-avg"></dd></div>
+        <div><dt>Suma total</dt><dd id="st-sum"></dd></div>
+        <div><dt>¿Alguna matriz diagonal?</dt><dd id="st-diag"></dd></div>
+      </dl>
+    </section>
+  </main>
+</body>
+</html>
