@@ -1,0 +1,4 @@
+Algoritmo: Householder, implementado a mano en lugar de usar una librería como gonum. Es el método estándar en librerías numéricas porque es más estable que Gram-Schmidt (que va perdiendo ortogonalidad por errores de redondeo).
+QR reducida: para una matriz A de m×n, con k = mín(m, n), devolvemos Q de m×k y R de k×n. Es la forma por defecto en librerías como NumPy y envía menos datos a la API de Node.
+Diagonal de R positiva: la QR no es única (se pueden cambiar signos), así que forzamos la diagonal de R ≥ 0 para que el resultado sea siempre el mismo.
+Límite de 100×100: la QR cuesta O(m·n²), así que limitamos el tamaño para que nadie tumbe el servidor con una matriz gigante.

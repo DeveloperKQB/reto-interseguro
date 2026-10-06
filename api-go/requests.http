@@ -1,0 +1,17 @@
+### Caso válido (ejemplo clásico)
+POST http://localhost:8080/api/qr
+Content-Type: application/json
+
+{"matrix": [[12, -51, 4], [6, 167, -68], [-4, 24, -41]]}
+
+### Error: filas de distinto tamaño
+POST http://localhost:8080/api/qr
+Content-Type: application/json
+
+{"matrix": [[1, 2], [3]]}
+
+### Error: valor no numérico
+POST http://localhost:8080/api/qr
+Content-Type: application/json
+
+{"matrix": [["a"]]}
