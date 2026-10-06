@@ -1,17 +1,32 @@
-### Caso válido (ejemplo clásico)
+### 1. Login: obtiene el token
+# @name login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{"username": "admin", "password": "Interseguro2026"}
+
+### 2. QR con token (usa el token del login automáticamente)
+POST http://localhost:8080/api/qr
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{"matrix": [[12, -51, 4], [6, 167, -68], [-4, 24, -41]]}
+
+### 3. QR sin token: debe dar 401
 POST http://localhost:8080/api/qr
 Content-Type: application/json
 
 {"matrix": [[12, -51, 4], [6, 167, -68], [-4, 24, -41]]}
 
-### Error: filas de distinto tamaño
+### 4. Login con contraseña incorrecta: debe dar 401
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{"username": "admin", "password": "incorrecta"}
+
+### 5. Error de validación (con token)
 POST http://localhost:8080/api/qr
 Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
 
 {"matrix": [[1, 2], [3]]}
-
-### Error: valor no numérico
-POST http://localhost:8080/api/qr
-Content-Type: application/json
-
-{"matrix": [["a"]]}

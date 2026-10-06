@@ -37,7 +37,7 @@ func NewStatsClient(baseURL string) *StatsClient {
 }
 
 // Compute envía las matrices a Node y devuelve las estadísticas.
-func (c *StatsClient) Compute(ctx context.Context, matrices ...[][]float64) (*Stats, error) {
+func (c *StatsClient) Compute(ctx context.Context, token string, matrices ...[][]float64) (*Stats, error) {
 	body, err := json.Marshal(map[string]any{"matrices": matrices})
 	if err != nil {
 		return nil, fmt.Errorf("serializando matrices: %w", err)
@@ -48,6 +48,7 @@ func (c *StatsClient) Compute(ctx context.Context, matrices ...[][]float64) (*St
 		return nil, err
 	}
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer "+token)
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {

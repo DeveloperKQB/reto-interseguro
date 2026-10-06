@@ -7,6 +7,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
+	"reto-interseguro/api-go/internal/auth"
 	"reto-interseguro/api-go/internal/client"
 	"reto-interseguro/api-go/internal/matrix"
 )
@@ -14,7 +15,7 @@ import (
 // StatsProvider abstrae la API de estadísticas. Usar una interfaz permite
 // reemplazarla por un "fake" en los tests (como una interfaz inyectada en C#).
 type StatsProvider interface {
-	Compute(ctx context.Context, matrices ...[][]float64) (*client.Stats, error)
+	Compute(ctx context.Context, token string, matrices ...[][]float64) (*client.Stats, error)
 }
 
 // QRRequest es el cuerpo esperado: {"matrix": [[1,2],[3,4]]}
@@ -59,7 +60,9 @@ func (h *QRHandler) Handle(c *fiber.Ctx) error {
 
 	q, r := matrix.QR(req.Matrix)
 
-	stats, err := h.stats.Compute(c.UserContext(), q, r)
+	// Reenviamos el mismo token del usuario: Node también lo valida.
+	token, _ := c.Locals(auth.LocalsToken).(string)
+	stats, err := h.stats.Compute(c.UserContext(), token, q, r)
 	if err != nil {
 		log.Printf("error en API de estadísticas: %v", err)
 		return c.Status(fiber.StatusBadGateway).JSON(ErrorResponse{

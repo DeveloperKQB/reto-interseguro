@@ -101,3 +101,18 @@ desde la red interna de Docker. Go espera a que Node esté sano
 
 ### 15. Cabecera X-Powered-By deshabilitada en Express
 Evita revelar la tecnología del servidor a posibles atacantes.
+
+---
+
+## Pruebas
+
+### 16. Tests en Go: table-driven y basados en propiedades
+Además de un caso con valores conocidos, se verifican las propiedades
+que toda QR debe cumplir (A = Q·R, QᵀQ = I, R triangular superior) sobre
+matrices cuadradas, altas, anchas, diagonales y con columnas nulas.
+
+### 17. Tests en Node: node:test + supertest
+El test runner nativo de Node evita dependencias extra. supertest prueba
+los endpoints en memoria gracias a la separación entre createApp() y
+listen(). supertest es dependencia de desarrollo y no entra en la imagen
+de Docker.
