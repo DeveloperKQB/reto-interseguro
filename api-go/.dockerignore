@@ -1,0 +1,4 @@
+requests.http
+*.exe
+Dockerfile
+.dockerignore

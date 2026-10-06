@@ -1,0 +1,19 @@
+services:
+  api-node:
+    build: ./api-node
+    # Sin "ports": servicio interno, solo accesible desde la red de Docker
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api-go:
+    build: ./api-go
+    ports:
+      - "8080:8080"
+    environment:
+      - STATS_API_URL=http://api-node:3000
+    depends_on:
+      api-node:
+        condition: service_healthy
