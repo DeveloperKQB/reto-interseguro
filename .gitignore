@@ -1,0 +1,7 @@
+# Binarios de Go
+*.exe
+api-go/api-go
+
+# Node
+node_modules/
+.env

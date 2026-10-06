@@ -1,0 +1,24 @@
+### Q y R del ejemplo clásico (copiadas de la respuesta de Go)
+POST http://localhost:3000/api/stats
+Content-Type: application/json
+
+{"matrices": [
+  [[0.857142857142857, -0.3942857142857142, -0.3314285714285714],
+   [0.42857142857142855, 0.9028571428571427, 0.034285714285714294],
+   [-0.2857142857142857, 0.17142857142857143, -0.942857142857143]],
+  [[14, 21.000000000000007, -14.000000000000004],
+   [0, 175.00000000000003, -69.99999999999999],
+   [0, 0, 35]]
+]}
+
+### Matrices diagonales
+POST http://localhost:3000/api/stats
+Content-Type: application/json
+
+{"matrices": [[[1, 0], [0, 1]], [[2, 0], [0, 3]]]}
+
+### Error: fila irregular
+POST http://localhost:3000/api/stats
+Content-Type: application/json
+
+{"matrices": [[[1, 2], [3]]]}
