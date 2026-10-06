@@ -23,7 +23,7 @@ services:
       api-node:
         condition: service_healthy
 
-    frontend:
+  frontend:
     build: ./frontend
     ports:
       - "8081:8080"
